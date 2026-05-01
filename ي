@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Birthday Game</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(270deg, #0a0a0a, #1a0033, #001a33, #0a0a0a);
+    background-size: 800% 800%;
+    animation: bgMove 12s ease infinite;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+}
+
+@keyframes bgMove {
+    0% {background-position:0% 50%}
+    50% {background-position:100% 50%}
+    100% {background-position:0% 50%}
+}
+
+/* شريط اللغات */
+#ticker {
+    position: absolute;
+    top: 8%;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #ff4fd8;
+    text-shadow: 0 0 10px #ff4fd8, 0 0 20px #00e5ff;
+}
+
+/* قلب pixel */
+.heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140px;
+    height: 140px;
+    background: #ff2bd6;
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: pulse 1s infinite;
+    box-shadow: 0 0 25px #ff2bd6, 0 0 60px #00e5ff;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: #ff2bd6;
+    border-radius: 50%;
+}
+
+.heart::before { top: -70px; left: 0; }
+.heart::after { left: -70px; top: 0; }
+
+@keyframes pulse {
+    0% {transform: translate(-50%, -50%) scale(1) rotate(45deg);}
+    50% {transform: translate(-50%, -50%) scale(1.25) rotate(45deg);}
+    100% {transform: translate(-50%, -50%) scale(1) rotate(45deg);}
+}
+
+/* التاريخ */
+#date {
+    position: absolute;
+    bottom: 8%;
+    width: 100%;
+    text-align: center;
+    color: #00e5ff;
+    font-size: 14px;
+    text-shadow: 0 0 10px #00e5ff;
+}
+
+/* قلوب pixel طالعة */
+.pixel {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff4fd8;
+    box-shadow: 0 0 10px #ff4fd8;
+    animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {transform: translateY(0); opacity: 1;}
+    100% {transform: translateY(-100vh); opacity: 0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="ticker">Loading...</div>
+
+<div class="heart"></div>
+
+<div id="date">02 / 05 / 2008 🇬🇷</div>
+
+<!-- موسيقى (اختياري من YouTube) -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/2bQKq2K8r6E?autoplay=1&loop=1&playlist=2bQKq2K8r6E">
+</iframe>
+
+<script>
+const messages = [
+"Happy Birthday 🎉",
+"عيد ميلاد سعيد 🎂",
+"Joyeux Anniversaire 🇫🇷",
+"Feliz Cumpleaños 🇪🇸",
+"Buon Compleanno 🇮🇹",
+"Alles Gute 🎁",
+"お誕生日おめでとう 🎌",
+"생일 축하합니다 🎊",
+"С днём рождения 🎈",
+"Χρόνια πολλά 🇬🇷"
+];
+
+let i = 0;
+setInterval(() => {
+    document.getElementById("ticker").innerText = messages[i];
+    i = (i + 1) % messages.length;
+}, 500);
+
+// قلوب pixel طالعة
+setInterval(() => {
+    const p = document.createElement("div");
+    p.className = "pixel";
+    p.style.left = Math.random() * window.innerWidth + "px";
+    p.style.top = window.innerHeight + "px";
+    document.body.appendChild(p);
+
+    setTimeout(() => p.remove(), 4000);
+}, 200);
+</script>
+
+</body>
+</html>
