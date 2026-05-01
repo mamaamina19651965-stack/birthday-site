@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+    overflow: hidden;
+}
+
+h1 {
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="text"></h1>
+
+<canvas id="canvas"></canvas>
+
+<!-- موسيقى من يوتيوب (غيري اللينك لو عايزة) -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/2bQKq2K8r6E?autoplay=1&loop=1&playlist=2bQKq2K8r6E">
+</iframe>
+
+<script>
+// لغات مختلفة
+const messages = [
+"Happy Birthday 🎂",
+"عيد ميلاد سعيد 🎉",
+"Joyeux anniversaire 🇫🇷",
+"Feliz cumpleaños 🇪🇸",
+"Buon compleanno 🇮🇹",
+"Alles Gute zum Geburtstag 🇩🇪",
+"お誕生日おめでとう 🇯🇵",
+"생일 축하합니다 🇰🇷",
+"С днём рождения 🇷🇺",
+"Χρόνια πολλά 🇬🇷"
+];
+
+let i = 0;
+const text = document.getElementById("text");
+
+function changeText() {
+    text.innerText = messages[i];
+    i = (i + 1) % messages.length;
+}
+setInterval(changeText, 1500);
+
+// رسم قلب
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let t = 0;
+
+function drawHeart() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+
+    for (let i = 0; i < 100; i++) {
+        let angle = i * 0.1;
+        let x = 16 * Math.pow(Math.sin(angle), 3);
+        let y = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+
+        ctx.lineTo(canvas.width/2 + x * 10, canvas.height/2 + y * 10);
+    }
+
+    ctx.strokeStyle = "red";
+    ctx.stroke();
+}
+
+setInterval(drawHeart, 50);
+
+// التاريخ باليوناني
+setTimeout(() => {
+    text.innerText = "02 / 05 / 2008 🇬🇷";
+}, 15000);
+
+</script>
+
+</body>
+</html>
